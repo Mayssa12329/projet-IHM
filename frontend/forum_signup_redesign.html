@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rejoindre la Communauté</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F1EB;
+    --surface: #FFFFFF;
+    --surface2: #FAFAF7;
+    --border: #E2DDD4;
+    --text: #1A1714;
+    --text-muted: #8A8278;
+    --text-light: #B5AFA6;
+    --accent: #2E6B4F;
+    --accent-light: #EAF3EE;
+    --accent2: #C4531A;
+    --accent2-light: #FBF0EA;
+    --purple: #5147A0;
+    --purple-light: #EEECf8;
+    --rose: #B84070;
+    --rose-light: #F9EBF1;
+    --amber: #9A6C00;
+    --amber-light: #FBF5E6;
+    --error: #C0392B;
+    --error-bg: #FDF3F2;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 20px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+  }
+
+  /* Background decoration */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 10% 0%, rgba(46,107,79,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 500px at 90% 100%, rgba(81,71,160,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── HEADER ── */
+  .card-header {
+    padding: 32px 36px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .brand-icon {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .brand-icon svg { width: 18px; height: 18px; fill: white; }
+
+  .brand-name {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── STEPPER ── */
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .step-circle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-light);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .step.active .step-circle {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+  }
+
+  .step.done .step-circle {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .step-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-light);
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .step.active .step-label { color: var(--text); }
+  .step.done .step-label { color: var(--accent); }
+
+  .step-connector {
+    flex: 1;
+    height: 1.5px;
+    background: var(--border);
+    margin: 0 8px;
+    transition: background 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-connector.filled::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    animation: fillLine 0.4s ease forwards;
+  }
+
+  @keyframes fillLine { from { width: 0% } to { width: 100% } }
+
+  /* ── BODY ── */
+  .card-body {
+    padding: 32px 36px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-panel {
+    display: none;
+    animation: fadeSlide 0.35s ease forwards;
+  }
+
+  .step-panel.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeSlideBack {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .step-panel.going-back { animation: fadeSlideBack 0.35s ease forwards; }
+
+  .panel-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .panel-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ── TOPICS ── */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .topic-pill {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--surface);
+    position: relative;
+    user-select: none;
+  }
+
+  .topic-pill:hover { border-color: #CABFB0; background: var(--surface2); }
+
+  .topic-pill.active { border-color: currentColor; }
+
+  .tp-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tp-text {}
+  .tp-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tp-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .tp-check {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+  }
+
+  .topic-pill.active .tp-check { opacity: 1; transform: scale(1); }
+
+  .topic-pill[data-color="green"]  { color: var(--accent); }
+  .topic-pill[data-color="green"].active  { background: var(--accent-light); }
+  .topic-pill[data-color="green"].active .tp-check  { background: var(--accent); }
+
+  .topic-pill[data-color="purple"] { color: var(--purple); }
+  .topic-pill[data-color="purple"].active { background: var(--purple-light); }
+  .topic-pill[data-color="purple"].active .tp-check { background: var(--purple); }
+
+  .topic-pill[data-color="coral"]  { color: var(--accent2); }
+  .topic-pill[data-color="coral"].active  { background: var(--accent2-light); }
+  .topic-pill[data-color="coral"].active .tp-check  { background: var(--accent2); }
+
+  .topic-pill[data-color="rose"]   { color: var(--rose); }
+  .topic-pill[data-color="rose"].active   { background: var(--rose-light); }
+  .topic-pill[data-color="rose"].active .tp-check   { background: var(--rose); }
+
+  .topic-pill[data-color="amber"]  { color: var(--amber); }
+  .topic-pill[data-color="amber"].active  { background: var(--amber-light); }
+  .topic-pill[data-color="amber"].active .tp-check  { background: var(--amber); }
+
+  .topic-pill span.tp-check svg { width: 10px; height: 10px; stroke: white; fill: none; stroke-width: 2.5; }
+
+  .topic-wide { grid-column: span 2; }
+
+  .selection-info {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .selection-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .selection-badge.empty { background: var(--border); color: var(--text-muted); }
+
+  /* ── FORM FIELDS ── */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .field { margin-bottom: 16px; }
+  .field-row { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input::placeholder { color: var(--text-light); }
+
+  input:focus {
+    border-color: var(--accent);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(46,107,79,0.1);
+  }
+
+  input.invalid {
+    border-color: var(--error);
+    background: var(--error-bg);
+  }
+
+  .error-msg {
+    font-size: 11px;
+    color: var(--error);
+    margin-top: 4px;
+    display: none;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .error-msg.show { display: flex; }
+
+  /* Password */
+  .pwd-wrap {
+    position: relative;
+  }
+
+  .pwd-wrap input { padding-right: 44px; }
+
+  .eye-btn {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: var(--text-light); padding: 4px;
+    display: flex; align-items: center;
+    transition: color 0.2s;
+  }
+
+  .eye-btn:hover { color: var(--text); }
+
+  /* Strength */
+  .strength-wrap { margin-top: 6px; }
+  .strength-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .strength-fill {
+    height: 100%; width: 0%;
+    border-radius: 2px;
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+  .strength-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Terms */
+  .terms-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 4px;
+  }
+
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    background: var(--surface2);
+  }
+
+  .check-box.checked {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .check-box svg { width: 10px; height: 10px; stroke: white; fill: none; stroke-width: 2.5; display: none; }
+  .check-box.checked svg { display: block; }
+
+  .terms-text {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .terms-text a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .terms-text a:hover { text-decoration: underline; }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .btn-back {
+    height: 44px;
+    padding: 0 20px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: none;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .btn-back:hover { background: var(--surface2); color: var(--text); border-color: #C4BCB0; }
+
+  .btn-next, .btn-submit {
+    flex: 1;
+    height: 44px;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.1px;
+  }
+
+  .btn-next:hover, .btn-submit:hover { background: #245C42; }
+  .btn-next:active, .btn-submit:active { transform: scale(0.98); }
+  .btn-next:disabled, .btn-submit:disabled {
+    background: var(--border); color: var(--text-light); cursor: not-allowed;
+  }
+
+  /* ── LOGIN LINK ── */
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .login-link a { color: var(--accent); font-weight: 600; text-decoration: none; }
+  .login-link a:hover { text-decoration: underline; }
+
+  /* ── SUCCESS ── */
+  .success-panel {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0 12px;
+    animation: fadeSlide 0.4s ease forwards;
+  }
+
+  .success-panel.active { display: flex; }
+
+  .success-ring {
+    width: 72px; height: 72px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .success-ring::before {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+  }
+
+  .success-ring svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+
+  .success-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .success-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  .selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .tag {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .btn-go {
+    width: 100%;
+    height: 44px;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-go:hover { background: #245C42; }
+
+  /* ── INLINE ALERT ── */
+  .inline-alert {
+    background: var(--error-bg);
+    border: 1px solid rgba(192,57,43,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--error);
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .inline-alert.show { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="card-header">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="brand-name">Communauté</span>
+    </div>
+
+    <div class="stepper">
+      <div class="step active" id="s1">
+        <div class="step-circle" id="sc1">1</div>
+        <span class="step-label">Vos intérêts</span>
+      </div>
+      <div class="step-connector" id="conn1"></div>
+      <div class="step" id="s2">
+        <div class="step-circle" id="sc2">2</div>
+        <span class="step-label">Votre compte</span>
+      </div>
+      <div class="step-connector" id="conn2"></div>
+      <div class="step" id="s3">
+        <div class="step-circle" id="sc3">✓</div>
+        <span class="step-label">Confirmé</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="card-body">
+
+    <!-- STEP 1 : Topics -->
+    <div class="step-panel active" id="panel1">
+      <h2 class="panel-title">Choisissez vos intérêts</h2>
+      <p class="panel-desc">Sélectionnez les domaines qui vous correspondent — cela personnalisera votre fil de discussion.</p>
+
+      <div class="inline-alert" id="alert1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Veuillez sélectionner au moins un thème.
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-pill" data-topic="psychologique" data-color="purple" onclick="toggleTopic(this)">
+          <span class="tp-icon">🧠</span>
+          <span class="tp-text">
+            <span class="tp-name">Psychologique</span>
+            <span class="tp-sub">Bien-être & développement</span>
+          </span>
+          <span class="tp-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+        </div>
+
+        <div class="topic-pill" data-topic="juridique" data-color="green" onclick="toggleTopic(this)">
+          <span class="tp-icon">⚖️</span>
+          <span class="tp-text">
+            <span class="tp-name">Juridique</span>
+            <span class="tp-sub">Droits & conseils légaux</span>
+          </span>
+          <span class="tp-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+        </div>
+
+        <div class="topic-pill" data-topic="sante" data-color="coral" onclick="toggleTopic(this)">
+          <span class="tp-icon">❤️</span>
+          <span class="tp-text">
+            <span class="tp-name">Santé</span>
+            <span class="tp-sub">Médical & prévention</span>
+          </span>
+          <span class="tp-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+        </div>
+
+        <div class="topic-pill" data-topic="educatif" data-color="rose" onclick="toggleTopic(this)">
+          <span class="tp-icon">📚</span>
+          <span class="tp-text">
+            <span class="tp-name">Éducatif</span>
+            <span class="tp-sub">Ressources & apprentissage</span>
+          </span>
+          <span class="tp-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+        </div>
+
+        <div class="topic-pill topic-wide" data-topic="social" data-color="amber" onclick="toggleTopic(this)">
+          <span class="tp-icon">🤝</span>
+          <span class="tp-text">
+            <span class="tp-name">Social</span>
+            <span class="tp-sub">Intégration, solidarité & vie en communauté</span>
+          </span>
+          <span class="tp-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+        </div>
+      </div>
+
+      <div class="selection-info">
+        <span class="selection-badge empty" id="sel-badge">0</span>
+        <span id="sel-text">thème sélectionné — choisissez au moins 1</span>
+      </div>
+
+      <button class="btn-next" onclick="goStep2()">
+        Continuer
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <!-- STEP 2 : Account form -->
+    <div class="step-panel" id="panel2">
+      <h2 class="panel-title">Créez votre compte</h2>
+      <p class="panel-desc">Quelques informations pour nous rejoindre.</p>
+
+      <div class="inline-alert" id="alert2">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="alert2-msg">Veuillez remplir tous les champs obligatoires.</span>
+      </div>
+
+      <div class="form-row" style="margin-bottom:12px;">
+        <div class="field field-row">
+          <label>Prénom *</label>
+          <input type="text" id="fname" placeholder="Ahmed" oninput="clearErr('fname')">
+          <div class="error-msg" id="err-fname">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="6" y1="4" x2="6" y2="6"/><line x1="6" y1="8" x2="6.01" y2="8"/></svg>
+            Prénom requis
+          </div>
+        </div>
+        <div class="field field-row">
+          <label>Nom *</label>
+          <input type="text" id="lname" placeholder="Ben Salem" oninput="clearErr('lname')">
+          <div class="error-msg" id="err-lname">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="6" y1="4" x2="6" y2="6"/><line x1="6" y1="8" x2="6.01" y2="8"/></svg>
+            Nom requis
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Adresse e-mail *</label>
+        <input type="email" id="email" placeholder="ahmed@exemple.com" oninput="clearErr('email')">
+        <div class="error-msg" id="err-email">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="6" y1="4" x2="6" y2="6"/><line x1="6" y1="8" x2="6.01" y2="8"/></svg>
+          Adresse e-mail invalide
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Nom d'utilisateur *</label>
+        <input type="text" id="username" placeholder="ahmed_salem" oninput="clearErr('username')">
+        <div class="error-msg" id="err-username">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="6" y1="4" x2="6" y2="6"/><line x1="6" y1="8" x2="6.01" y2="8"/></svg>
+          Nom d'utilisateur requis
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Mot de passe *</label>
+        <div class="pwd-wrap">
+          <input type="password" id="password" placeholder="Minimum 8 caractères" oninput="checkStrength()">
+          <button class="eye-btn" type="button" onclick="togglePwd()">
+            <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="strength-wrap">
+          <div class="strength-bar"><div class="strength-fill" id="sfill"></div></div>
+          <div class="strength-label" id="slabel"></div>
+        </div>
+      </div>
+
+      <div class="terms-row">
+        <div class="check-box" id="terms-box" onclick="toggleTerms()">
+          <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+        </div>
+        <p class="terms-text">J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a></p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          Retour
+        </button>
+        <button class="btn-submit" onclick="submitForm()">
+          Créer mon compte
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3 : Success -->
+    <div class="step-panel" id="panel3">
+      <div class="success-panel active">
+        <div class="success-ring">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 class="success-title">Compte créé !</h2>
+        <p class="success-sub">Bienvenue sur la plateforme. Vos thèmes d'intérêt ont bien été enregistrés.</p>
+        <div class="selected-tags" id="tags-out"></div>
+        <button class="btn-go" onclick="document.getElementById('panel3').classList.remove('active')">
+          Accéder à la plateforme →
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /card-body -->
+
+  <!-- Login link (outside panels) -->
+  <div class="login-link" id="login-row" style="padding-bottom:28px;">
+    Déjà inscrit ? <a href="#">Se connecter</a>
+  </div>
+
+</div><!-- /card -->
+
+<script>
+  let selectedTopics = [];
+  let termsAccepted = false;
+  let pwdVisible = false;
+  let currentStep = 1;
+
+  const labels = {
+    psychologique: 'Psychologique', juridique: 'Juridique',
+    sante: 'Santé', educatif: 'Éducatif', social: 'Social'
+  };
+
+  function toggleTopic(card) {
+    const topic = card.dataset.topic;
+    const isActive = card.classList.toggle('active');
+    if (isActive) {
+      selectedTopics.push(topic);
+    } else {
+      selectedTopics = selectedTopics.filter(t => t !== topic);
+    }
+    const badge = document.getElementById('sel-badge');
+    const n = selectedTopics.length;
+    badge.textContent = n;
+    badge.classList.toggle('empty', n === 0);
+    document.getElementById('sel-text').textContent =
+      n === 0 ? 'thème sélectionné — choisissez au moins 1'
+      : n === 1 ? 'thème sélectionné'
+      : 'thèmes sélectionnés';
+  }
+
+  function toggleTerms() {
+    termsAccepted = !termsAccepted;
+    document.getElementById('terms-box').classList.toggle('checked', termsAccepted);
+  }
+
+  function togglePwd() {
+    pwdVisible = !pwdVisible;
+    document.getElementById('password').type = pwdVisible ? 'text' : 'password';
+  }
+
+  function checkStrength() {
+    const pwd = document.getElementById('password').value;
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+    const fill = document.getElementById('sfill');
+    const label = document.getElementById('slabel');
+    const levels = [
+      { w: '25%', c: '#C0392B', l: 'Faible' },
+      { w: '50%', c: '#BA7517', l: 'Moyen' },
+      { w: '75%', c: '#2E6B4F', l: 'Fort' },
+      { w: '100%', c: '#5147A0', l: 'Très fort' }
+    ];
+    if (!pwd.length) { fill.style.width = '0%'; label.textContent = ''; return; }
+    const lv = levels[Math.min(score - 1, 3)] || levels[0];
+    fill.style.width = lv.w;
+    fill.style.background = lv.c;
+    label.textContent = lv.l;
+    label.style.color = lv.c;
+  }
+
+  function clearErr(id) {
+    document.getElementById('err-' + id).classList.remove('show');
+    document.getElementById(id).classList.remove('invalid');
+  }
+
+  function goStep2() {
+    document.getElementById('alert1').classList.remove('show');
+    if (selectedTopics.length === 0) {
+      document.getElementById('alert1').classList.add('show');
+      return;
+    }
+    setStep(2);
+  }
+
+  function goBack() {
+    setStep(1, true);
+  }
+
+  function setStep(n, back = false) {
+    document.getElementById('panel' + currentStep).classList.remove('active');
+    currentStep = n;
+    const panel = document.getElementById('panel' + n);
+    panel.classList.remove('going-back');
+    if (back) panel.classList.add('going-back');
+    panel.classList.add('active');
+
+    // stepper
+    [1,2,3].forEach(i => {
+      document.getElementById('s' + i).className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
+    });
+    [1,2].forEach(i => {
+      document.getElementById('conn' + i).classList.toggle('filled', i < n);
+    });
+
+    document.getElementById('login-row').style.display = n === 3 ? 'none' : 'block';
+  }
+
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    document.getElementById('alert2').classList.remove('show');
+    let valid = true;
+
+    if (!fname) { document.getElementById('err-fname').classList.add('show'); document.getElementById('fname').classList.add('invalid'); valid = false; }
+    if (!lname) { document.getElementById('err-lname').classList.add('show'); document.getElementById('lname').classList.add('invalid'); valid = false; }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) { document.getElementById('err-email').classList.add('show'); document.getElementById('email').classList.add('invalid'); valid = false; }
+    if (!username) { document.getElementById('err-username').classList.add('show'); document.getElementById('username').classList.add('invalid'); valid = false; }
+
+    if (!valid) {
+      document.getElementById('alert2-msg').textContent = 'Veuillez remplir tous les champs obligatoires.';
+      document.getElementById('alert2').classList.add('show');
+      return;
+    }
+
+    if (!termsAccepted) {
+      document.getElementById('alert2-msg').textContent = 'Veuillez accepter les conditions d\'utilisation.';
+      document.getElementById('alert2').classList.add('show');
+      return;
+    }
+
+    if (password.length < 8) {
+      document.getElementById('alert2-msg').textContent = 'Le mot de passe doit contenir au moins 8 caractères.';
+      document.getElementById('alert2').classList.add('show');
+      return;
+    }
+
+    // Show success
+    const tags = document.getElementById('tags-out');
+    tags.innerHTML = selectedTopics.map(t => `<span class="tag">${labels[t]}</span>`).join('');
+    setStep(3);
+  }
+</script>
+</body>
+</html>
