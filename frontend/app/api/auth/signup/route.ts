@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { setSession } from '@/lib/auth'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         prenom: firstName,
         email,
         motDePasse: password, // Le backend attend 'motDePasse'
+        interets: topics || [],
       }),
     })
 
@@ -44,10 +45,10 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json()
     
-    // Normaliser la réponse du backend
+    // Normaliser la rÃ©ponse du backend
     const user = data.data || data.user || data
     
-    // Créer une session
+    // CrÃ©er une session
     await setSession({
       id: user.id || user._id,
       email: user.email,
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
           bio: '',
           topics: topics || [],
         },
-        message: 'Compte créé avec succès'
+        message: 'Compte crÃ©Ã© avec succÃ¨s'
       },
       { status: 201 }
     )
@@ -80,16 +81,6 @@ export async function POST(request: NextRequest) {
         success: false,
         message: 'Erreur lors de l\'inscription' 
       },
-      { status: 500 }
-    )
-  }
-}
-      { status: 201 }
-    )
-  } catch (error) {
-    console.error('Signup error:', error)
-    return NextResponse.json(
-      { message: 'Une erreur est survenue lors de l\'inscription' },
       { status: 500 }
     )
   }

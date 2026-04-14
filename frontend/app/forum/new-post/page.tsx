@@ -13,7 +13,17 @@ const CATEGORIES = [
   { id: 'social', name: 'Social' },
 ]
 
+import { Suspense } from 'react'
+
 export default function NewPostPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Chargement...</div>}>
+      <NewPostContent />
+    </Suspense>
+  )
+}
+
+function NewPostContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get('category')

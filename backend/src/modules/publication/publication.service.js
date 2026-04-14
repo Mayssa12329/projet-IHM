@@ -16,6 +16,8 @@ class PublicationService {
   async getAll(query = {}) {
     const filter = {};
     if (query.statut) filter.statut = query.statut;
+    if (query.categorie) filter.categorie = query.categorie;
+    if (query.categories) filter.categorie = { $in: query.categories.split(',') };
 
     const page = parseInt(query.page, 10) || 1;
     const limit = parseInt(query.limit, 10) || 20;

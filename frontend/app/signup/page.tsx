@@ -81,7 +81,8 @@ export default function SignupPage() {
         throw new Error(errorData.message || 'Une erreur est survenue')
       }
 
-      router.push('/login?registered=true')
+      // Rediriger vers le forum (page d'accueil/flux d'actualité style Facebook)
+      router.push('/forum')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Une erreur est survenue')
       setIsLoading(false)

@@ -8,14 +8,16 @@ interface SessionData {
   userId: string
   username: string
   role: 'user' | 'moderator' | 'admin'
+  topics?: string[]
 }
 
-export async function setSession(user: User): Promise<void> {
+export async function setSession(user: any): Promise<void> {
   const cookieStore = await cookies()
   const sessionData: SessionData = {
     userId: user.id,
     username: user.username,
-    role: user.role,
+    role: user.role || 'user',
+    topics: user.topics || [],
   }
   
   cookieStore.set(SESSION_COOKIE, JSON.stringify(sessionData), {

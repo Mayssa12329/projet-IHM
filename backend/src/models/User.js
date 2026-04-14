@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    interets: {
+      type: [String],
+      default: [],
+    },
     // Moderateur-specific fields (only populated when role === 'moderateur')
     avertissements: {
       type: [String],

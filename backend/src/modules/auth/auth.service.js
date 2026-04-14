@@ -16,11 +16,11 @@ class AuthService {
    * @returns {Promise<{user: User, token: string}>}
    */
   async register(dto) {
-    const { nom, prenom, email, motDePasse } = dto;
+    const { nom, prenom, email, motDePasse, interets } = dto;
 
     const existing = await authRepository.findByEmail(email);
     if (existing) {
-      const err = new Error('Un compte avec cet email existe déjà.');
+      const err = new Error('Un compte avec cet email existe d\u00e9j\u00e0.');
       err.statusCode = 409;
       throw err;
     }
@@ -31,6 +31,7 @@ class AuthService {
       prenom,
       email,
       motDePasse: hashed,
+      interets: interets || []
     });
 
     const token = generateToken({ id: user._id, role: user.role });

@@ -14,8 +14,8 @@ class AuthController {
    */
   async register(req, res, next) {
     try {
-      const { nom, prenom, email, motDePasse } = req.body;
-      const result = await authService.register({ nom, prenom, email, motDePasse });
+      const { nom, prenom, email, motDePasse, interets } = req.body;
+      const result = await authService.register({ nom, prenom, email, motDePasse, interets });
       return success(res, result, 'Compte créé avec succès.', 201);
     } catch (err) {
       return next(err);

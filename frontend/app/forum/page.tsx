@@ -24,6 +24,12 @@ export default function ForumPage() {
   useEffect(() => {
     const initForum = async () => {
       try {
+        const res = await fetch('/api/auth/check')
+        if (res.ok) {
+          const data = await res.json()
+          setUser(data.session)
+        }
+
         // For demo purposes, use hardcoded categories
         const demoCategories: Category[] = [
           {
@@ -98,6 +104,35 @@ export default function ForumPage() {
             Explorez nos catégories et rejoignez les discussions qui vous intéressent
           </p>
         </div>
+
+        {/* --- DÉBUT FLUX D'ACTUALITÉ SUR MESURE --- */}
+        {user?.topics && user.topics.length > 0 && (
+          <div className="mb-12 space-y-6">
+            <h3 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <span>📰</span> Votre flux d'actualité personnel
+            </h3>
+            <div className="p-6 bg-card rounded-xl border-l-4 border-l-primary border-t border-r border-b border-border shadow-sm">
+              <p className="text-foreground leading-relaxed">
+                Bonjour <strong className="text-primary">{user.username || 'Cher membre'}</strong> ! 
+                Comme sur votre réseau social favori, voici votre espace personnalisé basé sur vos intérêts 
+                (<span className="font-semibold text-primary/80 uppercase text-xs ml-1">{user.topics.join(', ')}</span>).
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link href={"/forum/category/" + user.topics[0]}>
+                  <Button className="bg-primary text-primary-foreground font-medium">
+                    Parcourir les posts {user.topics[0]}
+                  </Button>
+                </Link>
+                <Link href="/forum">
+                  <Button variant="outline" className="font-medium">
+                    Découvrir d'autres sujets
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* --- FIN FLUX D'ACTUALITÉ --- */}
 
         {/* New Post Button */}
         <div className="mb-12">
