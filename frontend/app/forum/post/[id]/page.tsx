@@ -23,7 +23,7 @@ interface Post {
   content: string
   topicId: string
   topicName: string
-  topicEmoji: string
+  
   createdAt: string
   comments: Comment[]
 }
@@ -110,7 +110,7 @@ export default function PostPage() {
         <article className="bg-card rounded-lg border border-border p-10 mb-12">
           {/* Category Badge */}
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">{post.topicEmoji}</span>
+            <span className="text-2xl"></span>
             <span className="text-xs font-semibold bg-primary/10 text-primary px-3 py-1 rounded">
               {post.topicName}
             </span>

@@ -149,7 +149,7 @@ function NewPostContent() {
                 <option value="">Sélectionnez une catégorie</option>
                 {CATEGORIES.map(cat => (
                   <option key={cat.id} value={cat.id}>
-                    {cat.emoji} {cat.name}
+                     {cat.name}
                   </option>
                 ))}
               </select>

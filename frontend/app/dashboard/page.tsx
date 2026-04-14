@@ -144,7 +144,7 @@ export default function DashboardPage() {
                   key={topicId}
                   className="p-6 bg-secondary rounded-xl border border-border hover:border-primary/50 transition-colors cursor-pointer"
                 >
-                  <div className="text-3xl mb-3">{topic.emoji}</div>
+                  <div className="text-3xl mb-3"></div>
                   <h4 className="font-bold text-foreground">{topic.label}</h4>
                   <p className="text-sm text-muted-foreground mt-2">Explorez les discussions</p>
                 </div>
