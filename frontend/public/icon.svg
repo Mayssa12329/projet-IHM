@@ -1,91 +1,86 @@
 <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .gradient-primary { stop-color: #3b82f6; }
-      .gradient-secondary { stop-color: #1e40af; }
-      .gradient-accent { stop-color: #8b5cf6; }
-      .gradient-accent-dark { stop-color: #6d28d9; }
-      .text-color { fill: #1f2937; }
-      .bubble-color { fill: #3b82f6; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .gradient-primary { stop-color: #60a5fa; }
-      .gradient-secondary { stop-color: #3b82f6; }
-      .gradient-accent { stop-color: #a78bfa; }
-      .gradient-accent-dark { stop-color: #8b5cf6; }
-      .text-color { fill: #f3f4f6; }
-      .bubble-color { fill: #60a5fa; }
-    }
-  </style>
-  
   <defs>
-    <linearGradient id="gradientBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" class="gradient-primary"/>
-      <stop offset="100%" class="gradient-secondary"/>
+    <!-- Gradients for light mode -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803d;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="gradientPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" class="gradient-accent"/>
-      <stop offset="100%" class="gradient-accent-dark"/>
-    </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    
+    <radialGradient id="glowGradient" cx="50%" cy="30%">
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#16a34a;stop-opacity:0" />
+    </radialGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
   
-  <!-- Background -->
-  <rect width="192" height="192" fill="transparent"/>
+  <!-- Background with gradient -->
+  <rect width="192" height="192" fill="url(#glowGradient)"/>
   
-  <!-- Outer subtle circle -->
-  <circle cx="96" cy="96" r="92" fill="url(#gradientBlue)" opacity="0.08"/>
+  <!-- Main outer circle (rounded square effect) -->
+  <rect x="24" y="24" width="144" height="144" rx="30" ry="30" fill="url(#primaryGradient)" filter="url(#glow)"/>
   
-  <!-- Left person (head) -->
-  <circle cx="50" cy="48" r="14" fill="url(#gradientBlue)" filter="url(#shadow)"/>
+  <!-- Inner lighter accent -->
+  <rect x="32" y="32" width="128" height="128" rx="24" ry="24" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
   
-  <!-- Right person (head) -->
-  <circle cx="142" cy="48" r="14" fill="url(#gradientPurple)" filter="url(#shadow)"/>
-  
-  <!-- Center person (head) -->
-  <circle cx="96" cy="62" r="16" fill="url(#gradientBlue)" filter="url(#shadow)"/>
-  
-  <!-- Left person body -->
-  <rect x="44" y="66" width="12" height="24" rx="2" fill="url(#gradientBlue)" filter="url(#shadow)"/>
-  
-  <!-- Right person body -->
-  <rect x="136" y="66" width="12" height="24" rx="2" fill="url(#gradientPurple)" filter="url(#shadow)"/>
-  
-  <!-- Center person body -->
-  <rect x="90" y="82" width="12" height="28" rx="2" fill="url(#gradientBlue)" filter="url(#shadow)"/>
-  
-  <!-- Connection lines -->
-  <g stroke="url(#gradientPurple)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6">
-    <path d="M 58 62 Q 75 78 88 88"/>
-    <path d="M 134 62 Q 117 78 104 88"/>
-  </g>
-  
-  <!-- Bottom section - Communication element -->
-  <g filter="url(#shadow)">
-    <!-- Left speech bubble -->
-    <rect x="24" y="120" width="50" height="36" rx="8" fill="url(#gradientBlue)" opacity="0.85"/>
-    <polygon points="28,156 18,168 32,156" fill="url(#gradientBlue)" opacity="0.85"/>
+  <!-- Central symbol - speech bubbles forming a community -->
+  <!-- Left speech bubble -->
+  <g>
+    <ellipse cx="60" cy="75" rx="22" ry="28" fill="#dcfce7" opacity="0.95"/>
+    <polygon points="50,103 45,115 58,103" fill="#dcfce7"/>
     
-    <!-- Right speech bubble -->
-    <rect x="118" y="128" width="50" height="34" rx="8" fill="url(#gradientPurple)" opacity="0.85"/>
-    <polygon points="152,162 162,172 148,162" fill="url(#gradientPurple)" opacity="0.85"/>
+    <!-- Text lines in bubble -->
+    <line x1="55" y1="65" x2="70" y2="65" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="55" y1="75" x2="68" y2="75" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="55" y1="85" x2="65" y2="85" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
   </g>
   
-  <!-- Text indicators inside bubbles -->
-  <g fill="white" opacity="0.7">
-    <circle cx="32" cy="130" r="2.5"/>
-    <circle cx="45" cy="130" r="2.5"/>
-    <circle cx="58" cy="130" r="2.5"/>
-    <circle cx="126" cy="140" r="2.5"/>
-    <circle cx="139" cy="140" r="2.5"/>
-    <circle cx="152" cy="140" r="2.5"/>
+  <!-- Center speech bubble (larger, main focus) -->
+  <g>
+    <ellipse cx="96" cy="60" rx="28" ry="32" fill="#86efac" opacity="0.98" filter="url(#glow)"/>
+    <polygon points="84,92 76,105 92,92" fill="#86efac"/>
+    
+    <!-- Central circle representing unity -->
+    <circle cx="96" cy="60" r="12" fill="#15803d" opacity="0.8"/>
+    <circle cx="96" cy="60" r="9" fill="#22c55e"/>
   </g>
   
-  <!-- Connecting line between bubbles -->
-  <path d="M 74 138 L 118 142" stroke="url(#gradientBlue)" stroke-width="1" fill="none" stroke-dasharray="2,3" opacity="0.4"/>
+  <!-- Right speech bubble -->
+  <g>
+    <ellipse cx="132" cy="80" rx="22" ry="26" fill="#dcfce7" opacity="0.95"/>
+    <polygon points="142,106 147,118 134,106" fill="#dcfce7"/>
+    
+    <!-- Text lines in bubble -->
+    <line x1="127" y1="70" x2="142" y2="70" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="127" y1="80" x2="140" y2="80" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="127" y1="90" x2="137" y2="90" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  </g>
   
-  <!-- Small accent dot in center top -->
-  <circle cx="96" cy="25" r="3" fill="url(#gradientPurple)" opacity="0.5"/>
+  <!-- Bottom speech bubble -->
+  <g>
+    <rect x="70" y="115" width="52" height="32" rx="12" fill="#dcfce7" opacity="0.9"/>
+    <polygon points="96,147 90,158 102,147" fill="#dcfce7"/>
+    
+    <!-- Text lines -->
+    <line x1="82" y1="128" x2="110" y2="128" stroke="#15803d" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="82" y1="137" x2="105" y2="137" stroke="#15803d" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  
+  <!-- Connection lines between bubbles (community threads) -->
+  <g stroke="#22c55e" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round">
+    <path d="M 80 95 Q 88 105 96 105"/>
+    <path d="M 112 95 Q 104 105 96 105"/>
+    <path d="M 96 105 L 96 115"/>
+  </g>
+  
+  <!-- Top accent - small community symbol -->
+  <circle cx="96" cy="28" r="4" fill="#22c55e" opacity="0.7"/>
+  <circle cx="88" cy="32" r="2.5" fill="#4ade80" opacity="0.6"/>
+  <circle cx="104" cy="32" r="2.5" fill="#4ade80" opacity="0.6"/>
 </svg>
