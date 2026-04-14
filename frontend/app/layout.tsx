@@ -8,23 +8,18 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Communauté - Inscription',
   description: 'Rejoignez notre communauté en quelques étapes simples',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/icon-new.png?v=3',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/icon-new.png?v=3',
         media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      }
     ],
-    apple: '/apple-icon.png',
+    apple: '/apple-icon.png?v=3',
   },
 }
 
