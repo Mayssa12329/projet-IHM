@@ -14,10 +14,8 @@ export default function Home() {
       <header className="border-b border-border bg-card/95 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="inline-flex items-center justify-center w-10 h-10 bg-primary rounded-lg">
-              <svg className="w-6 h-6 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-              </svg>
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg overflow-hidden shrink-0">
+              <img src="/chat_8708617.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-2xl font-bold text-foreground">Communauté</h1>
           </div>
@@ -197,11 +195,9 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-primary rounded-lg">
-                  <svg className="w-5 h-5 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" />
-                  </svg>
-                </div>
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden shrink-0">
+              <img src="/chat_8708617.png" alt="Logo" className="w-full h-full object-contain" />
+            </div>
                 <span className="font-bold text-foreground">Communauté</span>
               </div>
               <p className="text-sm text-muted-foreground">Un espace sûr et bienveillant pour discuter et s&apos;entraider</p>
