@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Navbar from '@/components/Navbar'
 
@@ -11,8 +10,10 @@ interface Category {
   id: string
   name: string
   description: string
-  icon: string
+  color: string
+  bgGradient: string
   postsCount: number
+  svg: string
 }
 
 export default function ForumPage() {
@@ -30,42 +31,74 @@ export default function ForumPage() {
           setUser(data.session)
         }
 
-        // For demo purposes, use hardcoded categories
+        // Demo categories with SVG icons and professional styling
         const demoCategories: Category[] = [
           {
             id: 'psychology',
-            name: 'Psychologique',
-            description: 'Bien-être & développement personnel',
-            icon: '',
-            postsCount: 12,
+            name: 'Psychologie',
+            description: 'Santé mentale, bien-être et développement personnel',
+            color: '#3B82F6',
+            bgGradient: 'from-blue-500/20 to-blue-600/20',
+            postsCount: 142,
+            svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="35" r="15" fill="#3B82F6" opacity="0.2"/>
+              <path d="M 40 55 L 40 75 M 60 55 L 60 75 M 50 55 L 50 65" stroke="#3B82F6" strokeWidth="2" fill="none" strokeLinecap="round"/>
+              <path d="M 35 70 L 65 70" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round"/>
+            </svg>`,
           },
           {
             id: 'legal',
             name: 'Juridique',
-            description: 'Droits & conseils légaux',
-            icon: '',
-            postsCount: 8,
+            description: 'Droits, lois et conseils légaux',
+            color: '#A855F7',
+            bgGradient: 'from-purple-500/20 to-purple-600/20',
+            postsCount: 89,
+            svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="35" y="20" width="30" height="60" fill="#A855F7" opacity="0.15" stroke="#A855F7" strokeWidth="2" rx="2"/>
+              <line x1="40" y1="30" x2="60" y2="30" stroke="#A855F7" strokeWidth="1.5"/>
+              <line x1="40" y1="40" x2="60" y2="40" stroke="#A855F7" strokeWidth="1.5"/>
+              <line x1="40" y1="50" x2="60" y2="50" stroke="#A855F7" strokeWidth="1.5"/>
+            </svg>`,
           },
           {
             id: 'health',
             name: 'Santé',
-            description: 'Médical & prévention',
-            icon: '',
-            postsCount: 15,
+            description: 'Bien-être physique, nutrition et prévention',
+            color: '#EF4444',
+            bgGradient: 'from-red-500/20 to-red-600/20',
+            postsCount: 156,
+            svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 50 30 L 50 70 M 30 50 L 70 50" stroke="#EF4444" strokeWidth="4" fill="none" strokeLinecap="round"/>
+              <circle cx="50" cy="50" r="35" fill="none" stroke="#EF4444" strokeWidth="2" opacity="0.3"/>
+            </svg>`,
           },
           {
             id: 'education',
             name: 'Éducatif',
-            description: 'Ressources & apprentissage',
-            icon: '',
-            postsCount: 10,
+            description: 'Ressources, formations et apprentissage',
+            color: '#F59E0B',
+            bgGradient: 'from-amber-500/20 to-amber-600/20',
+            postsCount: 103,
+            svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 30 45 L 50 30 L 70 45 L 70 70 L 30 70 Z" fill="#F59E0B" opacity="0.15" stroke="#F59E0B" strokeWidth="2"/>
+              <line x1="50" y1="30" x2="50" y2="50" stroke="#F59E0B" strokeWidth="2"/>
+            </svg>`,
           },
           {
             id: 'social',
             name: 'Social',
-            description: 'Intégration & vie en communauté',
-            icon: '',
-            postsCount: 7,
+            description: 'Intégration communautaire et vie sociale',
+            color: '#10B981',
+            bgGradient: 'from-green-500/20 to-green-600/20',
+            postsCount: 178,
+            svg: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="40" r="12" fill="#10B981" opacity="0.2"/>
+              <circle cx="50" cy="30" r="12" fill="#10B981" opacity="0.2"/>
+              <circle cx="70" cy="40" r="12" fill="#10B981" opacity="0.2"/>
+              <line x1="30" y1="52" x2="30" y2="65" stroke="#10B981" strokeWidth="1.5"/>
+              <line x1="50" y1="42" x2="50" y2="65" stroke="#10B981" strokeWidth="1.5"/>
+              <line x1="70" y1="52" x2="70" y2="65" stroke="#10B981" strokeWidth="1.5"/>
+            </svg>`,
           },
         ]
         setCategories(demoCategories)
@@ -82,9 +115,11 @@ export default function ForumPage() {
   if (isLoading) {
     return (
       <main className="min-h-screen bg-background">
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="text-center">
-            <p className="text-muted-foreground">Chargement du forum...</p>
+        <Navbar />
+        <div className="max-w-7xl mx-auto px-4 py-24 text-center">
+          <div className="inline-flex items-center justify-center gap-3">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-muted-foreground text-lg font-medium">Chargement du forum...</p>
           </div>
         </div>
       </main>
@@ -93,119 +128,103 @@ export default function ForumPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Navbar userRole="user" userName={user?.firstName || 'Utilisateur'} />
+      <Navbar />
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 py-20 border-b border-border">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">Forum de discussion</h1>
+              <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">Explorez nos différentes catégories, posez vos questions et participez aux conversations bienveillantes</p>
+            </div>
+            <Link href="/forum/new-post" className="w-full md:w-auto">
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 h-auto text-lg rounded-lg transition-all hover:shadow-xl">
+                Créer un post
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Page Title */}
-        <div className="mb-12">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Forum de discussion</h2>
-          <p className="text-muted-foreground text-lg">
-            Explorez nos catégories et rejoignez les discussions qui vous intéressent
-          </p>
-        </div>
-
-        {/* --- DÉBUT FLUX D'ACTUALITÉ SUR MESURE --- */}
-        {user?.topics && user.topics.length > 0 && (
-          <div className="mb-12 space-y-6">
-            <h3 className="text-2xl font-bold text-foreground flex items-center gap-2">
-              <span>📰</span> Votre flux d'actualité personnel
-            </h3>
-            <div className="p-6 bg-card rounded-xl border-l-4 border-l-primary border-t border-r border-b border-border shadow-sm">
-              <p className="text-foreground leading-relaxed">
-                Bonjour <strong className="text-primary">{user.username || 'Cher membre'}</strong> ! 
-                Comme sur votre réseau social favori, voici votre espace personnalisé basé sur vos intérêts 
-                (<span className="font-semibold text-primary/80 uppercase text-xs ml-1">{user.topics.join(', ')}</span>).
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Link href={"/forum/category/" + user.topics[0]}>
-                  <Button className="bg-primary text-primary-foreground font-medium">
-                    Parcourir les posts {user.topics[0]}
-                  </Button>
-                </Link>
-                <Link href="/forum">
-                  <Button variant="outline" className="font-medium">
-                    Découvrir d'autres sujets
-                  </Button>
-                </Link>
-              </div>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        {/* Categories Grid */}
+        <div className="mb-20">
+          <div className="mb-12">
+            <h2 className="text-4xl font-bold text-foreground mb-3">Nos catégories</h2>
+            <p className="text-lg text-muted-foreground">Choisissez votre domaine et commencez à discuter</p>
           </div>
-        )}
-        {/* --- FIN FLUX D'ACTUALITÉ --- */}
 
-        {/* New Post Button */}
-        <div className="mb-12">
-          <Link href="/forum/new-post">
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2.5">
-              Créer une nouvelle discussion
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </Button>
-          </Link>
-        </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categories.map((category) => (
+              <Link key={category.id} href={`/forum/category/${category.id}`}>
+                <div className={`group bg-gradient-to-br ${category.bgGradient} border-2 border-border rounded-2xl p-8 hover:border-[${category.color}]/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full flex flex-col`}>
+                  {/* Icon */}
+                  <div className="h-24 mb-6 flex items-center justify-center" dangerouslySetInnerHTML={{ __html: category.svg }} />
 
-        {/* Categories Grid with Images */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map(category => {
-            const imageMap: Record<string, string> = {
-              psychology: '/images/category-psychology.jpg',
-              legal: '/images/category-legal.jpg',
-              health: '/images/category-health.jpg',
-              education: '/images/category-education.jpg',
-              social: '/images/category-social.jpg',
-            }
+                  {/* Title and description */}
+                  <h3 className="text-2xl font-bold text-foreground group-hover:text-opacity-80 transition-colors mb-3">{category.name}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-grow mb-6">{category.description}</p>
 
-            return (
-              <Link
-                key={category.id}
-                href={`/forum/category/${category.id}`}
-                className="group"
-              >
-                <div className="relative h-64 rounded-lg overflow-hidden border border-border hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer">
-                  <Image
-                    src={imageMap[category.id] || '/images/hero-community.jpg'}
-                    alt={category.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-all" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-1">{category.name}</h3>
-                    <p className="text-white/80 text-xs mb-3">{category.description}</p>
-                    <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium w-fit">
-                      {category.postsCount} discussions
+                  {/* Footer with posts count and CTA */}
+                  <div className="flex items-center justify-between pt-4 border-t-2 border-border/50">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: category.color }}></div>
+                      <span className="text-sm font-medium text-muted-foreground">{category.postsCount} discussions</span>
+                    </div>
+                    <span className="text-primary text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      Voir →
                     </span>
                   </div>
                 </div>
               </Link>
-            )
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Info Section */}
-        <div className="mt-16 p-8 bg-primary/5 border border-primary/20 rounded-lg">
-          <h3 className="text-lg font-semibold text-foreground mb-4">Comment ça marche ?</h3>
-          <ul className="space-y-3 text-muted-foreground">
-            <li className="flex items-start gap-3">
-              <span className="text-primary font-semibold">1.</span>
-              <span>Choisissez une catégorie qui vous intéresse</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-primary font-semibold">2.</span>
-              <span>Lisez les discussions existantes ou créez une nouvelle</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-primary font-semibold">3.</span>
-              <span>Participez respectueusement aux conversations</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-primary font-semibold">4.</span>
-              <span>Modéré pour garantir un espace sûr pour tous</span>
-            </li>
-          </ul>
-        </div>
+        {/* Stats Section */}
+        <section className="grid md:grid-cols-4 gap-6 mb-20">
+          {[
+            { label: 'Discussions totales', value: categories.reduce((sum, cat) => sum + cat.postsCount, 0) },
+            { label: 'Catégories', value: categories.length },
+            { label: 'Modérateurs actifs', value: '12' },
+            { label: 'Membres', value: '5000+' },
+          ].map((stat, idx) => (
+            <div key={idx} className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg transition-all">
+              <p className="text-3xl font-bold text-primary mb-2">{stat.value}</p>
+              <p className="text-muted-foreground text-sm font-medium">{stat.label}</p>
+            </div>
+          ))}
+        </section>
+
+        {/* Guidelines Section */}
+        <section className="bg-gradient-to-r from-primary/5 to-accent/5 border-2 border-primary/20 rounded-2xl p-12">
+          <h2 className="text-3xl font-bold text-foreground mb-8">Nos règles de discussion</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { title: 'Respectez les autres', desc: 'Chaque avis est valide. Écoutez, comprenez et soyez bienveillant.' },
+              { title: 'Soyez authentique', desc: 'Partagez vos vraies expériences et pensées honnêtement.' },
+              { title: 'Pas de spam', desc: 'Évitez les contenus promotionnels ou publicitaires.' },
+              { title: 'Aidez les autres', desc: 'Si vous avez une solution, n\'hésitez pas à la partager.' },
+            ].map((rule, idx) => (
+              <div key={idx} className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/20 text-primary font-bold text-lg">
+                    {idx + 1}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1">{rule.title}</h4>
+                  <p className="text-muted-foreground text-sm">{rule.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   )
